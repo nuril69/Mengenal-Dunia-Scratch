@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mengenal Dunia Scratch - Koding dan Kecerdasan Artifisial</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .slideshow-container {
+            max-width: 1000px;
+            position: relative;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .slide {
+            display: none;
+            padding: 60px 50px;
+            text-align: center;
+            min-height: 600px;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .slide.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h1 {
+            color: #2c3e50;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            color: #34495e;
+            font-size: 2em;
+            margin-bottom: 30px;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 1.2em;
+            color: #7f8c8d;
+            margin-bottom: 40px;
+            font-style: italic;
+        }
+
+        .agenda, .interface-items, .activity-steps {
+            text-align: left;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .agenda-item, .interface-item, .step {
+            background: linear-gradient(45deg, #f39c12, #e74c3c);
+            color: white;
+            padding: 15px 25px;
+            margin: 15px 0;
+            border-radius: 10px;
+            font-size: 1.1em;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transform: translateX(-10px);
+            transition: all 0.3s ease;
+        }
+
+        .agenda-item:hover, .interface-item:hover, .step:hover {
+            transform: translateX(0);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+        }
+
+        .interface-item {
+            background: linear-gradient(45deg, #3498db, #2980b9);
+        }
+
+        .step {
+            background: linear-gradient(45deg, #27ae60, #2ecc71);
+        }
+
+        .code-block {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 20px;
+            border-radius: 10px;
+            font-family: 'Courier New', monospace;
+            margin: 20px 0;
+            text-align: left;
+            font-size: 1.1em;
+            box-shadow: inset 0 2px 10px rgba(0,0,0,0.3);
+        }
+
+        .highlight {
+            background: #f1c40f;
+            color: #2c3e50;
+            padding: 2px 8px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        .reflection-questions {
+            background: linear-gradient(45deg, #9b59b6, #8e44ad);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin: 20px 0;
+        }
+
+        .reflection-questions h3 {
+            margin-bottom: 20px;
+            font-size: 1.3em;
+        }
+
+        .reflection-questions ul {
+            list-style: none;
+            text-align: left;
+        }
+
+        .reflection-questions li {
+            margin: 10px 0;
+            padding: 10px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 8px;
+            border-left: 4px solid #ecf0f1;
+        }
+
+        .navigation {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 15px;
+            z-index: 100;
+        }
+
+        .nav-btn {
+            background: linear-gradient(45deg, #3498db, #2980b9);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+
+        .nav-btn:disabled {
+            background: #95a5a6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .slide-counter {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(52, 73, 94, 0.8);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+        }
+
+        .scratch-logo {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(45deg, #ff6b35, #f7941e);
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2em;
+            color: white;
+            margin: 20px 0;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .task-box {
+            background: linear-gradient(45deg, #e74c3c, #c0392b);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin: 20px 0;
+            font-size: 1.3em;
+            font-weight: bold;
+            box-shadow: 0 10px 30px rgba(231, 76, 60, 0.3);
+        }
+
+
+
+        @media (max-width: 768px) {
+            .slide {
+                padding: 40px 20px;
+                min-height: 500px;
+            }
+            
+            h1 {
+                font-size: 2em;
+            }
+            
+            h2 {
+                font-size: 1.5em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="slideshow-container">
+        <div class="slide-counter">
+            <span id="current-slide">1</span> / <span id="total-slides">5</span>
+        </div>
+        
+        <!-- Slide 1: Judul -->
+        <div class="slide active">
+            <div class="scratch-logo">🐱</div>
+            <h1>Mengenal Dunia Scratch</h1>
+            <p class="subtitle">Koding dan Kecerdasan Artifisial - SMP</p>
+            <p style="color: #7f8c8d; font-size: 1.1em; margin-top: 10px; font-weight: 500;">oleh. Nuril Ilmi, S.Kom.</p>
+            
+            <div style="background: linear-gradient(45deg, #2ecc71, #27ae60); color: white; padding: 20px; border-radius: 15px; margin: 30px 0;">
+                <h3>🎯 Tujuan Pembelajaran:</h3>
+                <p style="font-size: 1.1em; margin-top: 10px;">Menjalankan instruksi dengan presisi untuk menggerakkan Sprite</p>
+            </div>
+            
+            <div class="agenda">
+                <h3 style="color: #2c3e50; margin-bottom: 20px; font-size: 1.4em;">📋 Agenda Pembelajaran:</h3>
+                <div class="agenda-item">1️⃣ Pengenalan antarmuka Scratch</div>
+                <div class="agenda-item">2️⃣ Aktivitas: <em>Sprite Pertamaku</em></div>
+                <div class="agenda-item">3️⃣ Praktik terbimbing & observasi</div>
+                <div class="agenda-item">4️⃣ Refleksi</div>
+            </div>
+        </div>
+
+        <!-- Slide 2: Antarmuka Scratch -->
+        <div class="slide">
+            <h2>🖥️ Antarmuka Scratch</h2>
+            <p class="subtitle">Mari kenali komponen-komponen penting dalam Scratch!</p>
+            
+            <div class="interface-items">
+                <div class="interface-item">
+                    <strong>🐱 Sprite:</strong> Karakter yang dapat kita kendalikan dan program
+                </div>
+                <div class="interface-item">
+                    <strong>🎭 Stage:</strong> Panggung tempat semua aksi dan animasi terjadi
+                </div>
+                <div class="interface-item">
+                    <strong>🧩 Palet Blok Kode:</strong> Kumpulan perintah yang tersedia
+                    <div style="margin-top: 10px; font-size: 0.9em;">
+                        • <span class="highlight">Motion</span> - Gerakan<br>
+                        • <span class="highlight">Looks</span> - Tampilan<br>
+                        • <span class="highlight">Sound</span> - Suara<br>
+                        • <span class="highlight">Events</span> - Pemicu
+                    </div>
+                </div>
+            </div>
+            
+            <div style="background: #ecf0f1; padding: 20px; border-radius: 10px; margin-top: 30px;">
+                <p style="color: #2c3e50; font-style: italic;">💡 Tips: Scratch menggunakan sistem drag-and-drop yang mudah dipahami!</p>
+            </div>
+        </div>
+
+        <!-- Slide 3: Aktivitas Sprite Pertamaku -->
+        <div class="slide">
+            <h2>🚀 Aktivitas: Sprite Pertamaku</h2>
+            <p class="subtitle">Langkah demi langkah membuat program pertama!</p>
+            
+            <div class="activity-steps">
+                <div class="step">
+                    <strong>Langkah 1:</strong> Tarik blok <span class="highlight">when green flag clicked</span> dari kategori Events
+                </div>
+                <div class="step">
+                    <strong>Langkah 2:</strong> Tambahkan blok <span class="highlight">move 50 steps</span> dari kategori Motion
+                </div>
+                <div class="step">
+                    <strong>Langkah 3:</strong> Tambahkan blok <span class="highlight">say 'Hello!' for 2 seconds</span> dari kategori Looks
+                </div>
+                <div class="step">
+                    <strong>Langkah 4:</strong> Klik bendera hijau dan amati hasilnya! 🎉
+                </div>
+            </div>
+            
+            <div class="code-block">
+                <div>🏁 when green flag clicked</div>
+                <div>→ move 50 steps</div>
+                <div>💬 say "Hello!" for 2 seconds</div>
+            </div>
+            
+            <div style="background: linear-gradient(45deg, #f39c12, #e67e22); color: white; padding: 15px; border-radius: 10px; margin-top: 20px;">
+                <strong>✨ Hasil yang diharapkan:</strong> Sprite bergerak 50 langkah dan mengatakan "Hello!" selama 2 detik
+            </div>
+        </div>
+
+        <!-- Slide 4: Tugas -->
+        <div class="slide">
+            <div class="task-box">
+                <h2>📝 Tugas Praktik</h2>
+                <div style="margin-top: 30px; font-size: 1.1em; line-height: 1.6;">
+                    Susun kode sesuai instruksi yang ada di Lembar Kerja Siswa (LKS)
+                </div>
+            </div>
+            
+            <div style="background: #3498db; color: white; padding: 25px; border-radius: 15px; margin: 30px 0;">
+                <h3>🎯 Petunjuk Pengerjaan:</h3>
+                <div style="text-align: left; margin-top: 15px; font-size: 1.05em;">
+                    <p>• Baca instruksi dengan teliti</p>
+                    <p>• Ikuti urutan langkah yang diberikan</p>
+                    <p>• Uji coba program setelah selesai</p>
+                    <p>• Jangan ragu bertanya jika ada kesulitan</p>
+                </div>
+            </div>
+            
+            <div style="background: rgba(46, 204, 113, 0.1); border: 2px solid #2ecc71; padding: 20px; border-radius: 10px;">
+                <p style="color: #27ae60; font-weight: bold;">⏰ Waktu pengerjaan: 15 menit</p>
+            </div>
+        </div>
+
+        <!-- Slide 5: Refleksi -->
+        <div class="slide">
+            <h2>🤔 Refleksi</h2>
+            <p class="subtitle">Mari kita renungkan apa yang telah dipelajari!</p>
+            
+            <div class="reflection-questions">
+                <h3>💭 Pertanyaan Refleksi:</h3>
+                <ul>
+                    <li><strong>❓ Apa yang terjadi jika urutan blok diubah?</strong></li>
+                    <li><strong>🏁 Blok mana yang memulai program?</strong></li>
+                    <li><strong>⚡ Mengapa blok Events penting?</strong></li>
+                </ul>
+            </div>
+            
+            <div style="background: linear-gradient(45deg, #e74c3c, #c0392b); color: white; padding: 25px; border-radius: 15px; margin: 30px 0;">
+                <h3>🔑 Poin Penting:</h3>
+                <p style="font-size: 1.2em; margin-top: 15px;">
+                    Blok <strong>Events</strong> (bendera hijau) berfungsi sebagai <strong>pemicu</strong> atau trigger untuk memulai program
+                </p>
+            </div>
+            
+            <div style="background: #ecf0f1; padding: 20px; border-radius: 10px; color: #2c3e50;">
+                <h4>🎯 Kesimpulan:</h4>
+                <p>Pemrograman adalah tentang memberikan instruksi yang tepat dalam urutan yang benar!</p>
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <div class="navigation">
+            <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)">← Sebelumnya</button>
+            <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)">Selanjutnya →</button>
+        </div>
+        
+
+    </div>
+
+    <script>
+        let currentSlide = 1;
+        const totalSlides = document.querySelectorAll('.slide').length;
+        
+        document.getElementById('total-slides').textContent = totalSlides;
+        
+        function showSlide(n) {
+            const slides = document.querySelectorAll('.slide');
+            
+            if (n > totalSlides) currentSlide = 1;
+            if (n < 1) currentSlide = totalSlides;
+            
+            slides.forEach(slide => slide.classList.remove('active'));
+            slides[currentSlide - 1].classList.add('active');
+            
+            document.getElementById('current-slide').textContent = currentSlide;
+            
+            // Update navigation buttons
+            document.getElementById('prevBtn').disabled = currentSlide === 1;
+            document.getElementById('nextBtn').disabled = currentSlide === totalSlides;
+        }
+        
+        function changeSlide(n) {
+            currentSlide += n;
+            showSlide(currentSlide);
+        }
+        
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowLeft') changeSlide(-1);
+            if (e.key === 'ArrowRight') changeSlide(1);
+        });
+        
+        // Initialize
+        showSlide(currentSlide);
+        
+        // Auto-advance slides (optional)
+        function startAutoSlide() {
+            setInterval(() => {
+                if (currentSlide < totalSlides) {
+                    changeSlide(1);
+                }
+            }, 30000); // Change slide every 30 seconds
+        }
+        
+        // Uncomment the line below to enable auto-advance
+        // startAutoSlide();
+    </script>
+</body>
+</html>
